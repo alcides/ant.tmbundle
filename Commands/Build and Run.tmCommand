@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>. "$TM_SUPPORT_PATH/lib/webpreview.sh"
+
+require_cmd "${TM_ANT:=ant}" "Ant was not found, please ensure that it has been installed and your \$PATH is set correctly."
+
+html_header "Ant Build and Run"
+
+TM_PROJECT_DIR=`dirname "$TM_PROJECT_FILEPATH"`;
+
+if [[ "$TM_ANT_BUILD_PARSER" == "" ]]; then 
+	TM_ANT_BUILD_PARSER=pre
+fi
+
+"$TM_ANT" -find build.xml run | grep "\[java\]" | sed s/"     \[java\] "//g | $TM_ANT_BUILD_PARSER
+
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@B</string>
+	<key>name</key>
+	<string>Build and Run</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>scope</key>
+	<string>source.java</string>
+	<key>uuid</key>
+	<string>A5A8C89C-E3ED-440A-986F-AE05AFF912DE</string>
+</dict>
+</plist>
